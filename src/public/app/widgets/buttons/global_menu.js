@@ -157,7 +157,7 @@ export default class GlobalMenuWidget extends BasicWidget {
     }
 
     async updateVersionStatus() {
-        const latestVersion = await this.fetchLatestVersion();
+        if (false) {const latestVersion = await this.fetchLatestVersion();} else {const latestVersion = glob.triliumVersion;}
 
         this.updateAvailableWidget.updateVersionStatus(latestVersion);
 
