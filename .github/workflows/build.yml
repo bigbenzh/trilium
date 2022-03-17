@@ -37,11 +37,11 @@ jobs:
       with:
         node-version: ${{ env.NODE_VERSION }}
 
-    - name: fix dependencies
+    - name: pre-build
       run: npm install
     
     - name: build
-      run: bin/build.sh
+      run: mkdir -p dist-trilium-src && bin/build.sh
 
     - name: Create Release Draft
       uses: softprops/action-gh-release@v1
