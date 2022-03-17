@@ -1,0 +1,54 @@
+name: build
+
+on:
+  workflow_dispatch:
+    inputs:
+      build-target:
+        description: 'Build Target ("nightly"/"beta"/"non-release")'
+        type: string
+        required: true
+        default: "beta"
+      git-ref:
+        description: "Release Git Ref(master)"
+        required: true
+        default: "master"
+      is-draft:
+        description: 'Draft Release? (Beta only, Nightly will always be a non-draft)'
+        type: boolean
+        required: true
+        default: true
+      is-pre-release:
+        description: 'Pre Release? (labeled as "PreRelease")'
+        type: boolean
+        required: true
+        default: true
+        
+jobs:
+  compile:
+    runs-on: ubuntu-18.04
+    steps:
+    - name: Check out Git repository
+      uses: actions/checkout@v2
+      with:
+        ref: ${{ github.event.inputs.git-ref }}
+
+    - name: Install Node.js, NPM and Yarn
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+
+    - name: build
+      run: bin/build.sh
+
+    - name: Create Release Draft
+        uses: softprops/action-gh-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: "v0.01"
+          name: test
+          body: "TODO: Fill this changelog. Sorry for the inconvenience!"
+          draft: ${{ github.event.inputs.is-draft }}
+          prerelease: ${{ github.event.inputs.is-pre-release }}
+          files: |
+            dist/*.zip
