@@ -41,14 +41,14 @@ jobs:
       run: bin/build.sh
 
     - name: Create Release Draft
-        uses: softprops/action-gh-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: "v0.01"
-          name: test
-          body: "TODO: Fill this changelog. Sorry for the inconvenience!"
-          draft: ${{ github.event.inputs.is-draft }}
-          prerelease: ${{ github.event.inputs.is-pre-release }}
-          files: |
-            dist/*.zip
+      uses: softprops/action-gh-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: "v0.01"
+        name: test
+        body: "TODO: Fill this changelog. Sorry for the inconvenience!"
+        draft: ${{ github.event.inputs.is-draft }}
+        prerelease: ${{ github.event.inputs.is-pre-release }}
+        files: |
+          dist/*.zip
