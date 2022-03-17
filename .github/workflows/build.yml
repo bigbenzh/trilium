@@ -64,4 +64,4 @@ jobs:
         draft: ${{ github.event.inputs.is-draft }}
         prerelease: ${{ github.event.inputs.is-pre-release }}
         files: |
-          dist/*.zip
+          dist/*.*
